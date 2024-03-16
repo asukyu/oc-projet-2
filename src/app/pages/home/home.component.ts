@@ -9,10 +9,12 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 })
 export class HomeComponent implements OnInit {
   public olympics$: Observable<any> = of(null);
-
+  id!: number;
+  country!: string;
   constructor(private olympicService: OlympicService) {}
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
+    this.country = "test";
   }
 }
