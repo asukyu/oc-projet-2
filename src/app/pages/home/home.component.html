@@ -1,14 +1,24 @@
 <h2>Olympic games app</h2>
 <hr />
-<p>{{ (olympics$ | async)?.length }} data loaded</p>
-<ngx-charts-pie-chart
-  [results]="single"
-  [gradient]="gradient"
-  [legend]="showLegend"
-  [labels]="showLabels"
-  [doughnut]="isDoughnut"
-  (select)="onSelect($event)"
-  (activate)="onActivate($event)"
-  (deactivate)="onDeactivate($event)"
+<div #chartContainerRef class="chart-container">
+  <ngx-charts-pie-chart
+      [view]="view"
+      class="pie-label"
+      [results]="data"
+      [gradient]="gradient"
+      [legend]="showLegend"
+      [legendPosition]="legendPosition"
+      [labels]="showLabels"
+      [maxLabelLength]="maxLabelLength"
+      [doughnut]="isDoughnut"
+      (select)="onSelect($event)"
   >
-</ngx-charts-pie-chart>
+      <ng-template #tooltipTemplate let-model="model">
+          <div class="tooltip">
+              <h1>{{ model.name }}</h1>
+              <div class="subTitle">
+                  <mat-icon>workspace_premium</mat-icon><h2>{{ model.value }}</h2>
+              </div>
+          </div>
+      </ng-template>
+  </ngx-charts-pie-chart>
