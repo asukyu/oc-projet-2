@@ -6,7 +6,6 @@ import { single } from './data';
 import { OlympicMedalsCount } from 'src/app/core/models/OlympicMedalsCount';
 import { Olympic, Olympics } from 'src/app/core/models/Olympic';
 import { PieChartValue } from 'src/app/core/models/PieChartValue';
-import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -19,7 +18,7 @@ export class HomeComponent implements OnInit {
   id!: number;
   country!: string;
   medalsCount!: number;
-  olympics: Olympic[] = [];
+  olympics!: Array<Olympic>;
   Participation: any[] | undefined;
   single: any[] | undefined;
   view: [number, number] = window.innerWidth < 800 ? [window.innerWidth,window.innerWidth] : [window.innerWidth/3,window.innerWidth/3];
@@ -35,33 +34,20 @@ export class HomeComponent implements OnInit {
 
  constructor(
   private olympicService: OlympicService,
-  private toastrService : ToastrService
   ) {
     Object.assign(this, { OlympicService } );  
  }
 
   ngOnInit(): void {
     this.subscription = this.olympicService.getOlympics().subscribe({
-      next: (olympic : Olympics | undefined) => {
-        if(olympic === undefined) return
-        this.data = this.olympicsList.map((olympic : Olympic) => {return {name: olympic.country, value: this.olympicService.getTotalNbMedals(olympic)}});
+      next: (olympics : Olympics | undefined) => {
+        if(olympics === undefined) return;
+        this.olympics = olympics.map((olympic) => new Olympic(olympic))
+        this.data = this.olympics.map((olympic : Olympic) => {return {name: olympic.country, value: this.olympicService.getTotalNbMedals(olympic)}});
       },
       error : (error : Error) => {
-        this.showErrorToast(error);
       }
     })
-  }
- 
-  showErrorToast(error : Error) : void {
-    this.toastrService.error(error.message, error.name, {
-      progressBar: true,
-      closeButton: true,
-      progressAnimation: 'decreasing',
-      timeOut: 5000,
-      newestOnTop: true,
-      positionClass: 'toast-bottom-full-width',
-      tapToDismiss: true
-    });
   }
 
   onSelect(data: any): void {
