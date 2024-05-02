@@ -13,12 +13,10 @@
       [doughnut]="isDoughnut"
       (select)="onSelect($event)"
   >
-      <ng-template #tooltipTemplate let-model="model">
-          <div class="tooltip">
-              <h1>{{ model.name }}</h1>
-              <div class="subTitle">
-                  <mat-icon>workspace_premium</mat-icon><h2>{{ model.value }}</h2>
-              </div>
-          </div>
-      </ng-template>
+    <ng-template #tooltipTemplate let-model="model">
+        <div style="background-color: rgb(34, 102, 91); padding: 1px 20px 1px 20px; margin: 0px -10px 0px -10px;">
+        <p>{{ model.name }}</p>
+        <p><fa-icon [icon]="faMedalIcon"></fa-icon> {{ model.value }}</p>
+        </div>
+    </ng-template>
   </ngx-charts-pie-chart>

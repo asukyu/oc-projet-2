@@ -6,6 +6,7 @@ import { single } from './data';
 import { OlympicMedalsCount } from 'src/app/core/models/OlympicMedalsCount';
 import { Olympic, Olympics } from 'src/app/core/models/Olympic';
 import { PieChartValue } from 'src/app/core/models/PieChartValue';
+import { faMedal } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -31,6 +32,7 @@ export class HomeComponent implements OnInit {
   legendPosition: string | any = 'below';
   tooltipDisabled : boolean = true;
   maxLabelLength : number = 22;
+  faMedalIcon = faMedal;
 
  constructor(
   private olympicService: OlympicService,
