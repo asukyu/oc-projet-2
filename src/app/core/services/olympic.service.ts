@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { catchError, tap, map, filter } from 'rxjs/operators';
 import { Olympic, Olympics } from '../models/Olympic';
+import { Participation } from '../models/Participation';
 
 @Injectable({
   providedIn: 'root',
@@ -35,26 +36,51 @@ export class OlympicService {
     return olympic.participations.map((participation) => participation.medalsCount).reduce((a,b) => a+b);
   }
 
+  getNumberOfJos(olympics: Olympic[]): number {
+    var jos: Participation[] = [];
+    // one loop for each olympic and inside a loop for each participation
+    olympics.forEach(o => o.participations.forEach(p => {
+      var participation = this.getParticipationById(p.id, jos);
+      // to avoid duplicate values, this participation p is pushed inside jos only if it doesn't exist in jos
+      if (!participation) {
+        jos.push(p);
+      }
+    }));
+    return jos.length;
+  }  getNumberOfCountries(olympics: Olympic[]): number {
+    var olympicList: Olympic[] = [];
+    olympics.forEach(ol => {
+      var olympic = this.getOlympicById(ol.id, olympicList);
+      if (!olympic) {
+        olympicList.push(ol);
+      }
+    });
+    return olympicList.length;
+  }
+
+  getParticipationById(id: number, participations: Participation[]): Participation | undefined {
+    var participation = undefined;
+    if (participations) {
+      participation = participations.find(p => p.id == id);
+    }
+    return participation;
+  }  
+  
   getMedalsCountByOlympicId(id: number, olympics: Olympic[]): number {
     var medalsCount = 0;
- //   const country = this.getOlympicById(id, olympics);
- //   if (country != null) {
+    var country = this.getOlympicById(id, olympics);
+    if (country) {
       // loop for each participation
-//      country.participations.forEach(p => medalsCount += p.medalsCount);
- //   }
+      country.participations.forEach(p => medalsCount += p.medalsCount);
+    }
     return medalsCount;
   }
-/*  getOlympicById(id: number, olympics: Olympic[]):Observable<Olympic>
-    {
-      return this.olympics$.asObservable().pipe(
-        filter(value => Array.isArray(value) && value.length > 0),
-        map( olympics => {
-          let filtered = olympics.filter( olympic => olympic.id == id );
-          if (filtered.length != 1) {
-            throw new Error('Country not found')
-          }
-          return filtered[0];
-        })
-      );
-  } */
+
+  getOlympicById(id: number, olympics: Olympic[]): Olympic | undefined {
+    var olympic = undefined;
+    if (olympics.length > 0) {
+      olympic = olympics.find(o => o.id == id);
+    }
+    return olympic;
+  }
 }

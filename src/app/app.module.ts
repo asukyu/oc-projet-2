@@ -7,8 +7,9 @@ import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CounterComponent } from './pages/counter/counter.component';
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NotFoundComponent],
+  declarations: [AppComponent, HomeComponent, NotFoundComponent, CounterComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgxChartsModule, FontAwesomeModule],
   providers: [],
   bootstrap: [AppComponent],

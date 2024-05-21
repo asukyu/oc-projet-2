@@ -1,5 +1,11 @@
 <h2>Olympic games app</h2>
 <hr />
+<div>
+  <app-counter [label]="joLabel" [count]="joCount"></app-counter>
+</div>
+<div>
+  <app-counter [label]="countriesLabel" [count]="countriesCount"></app-counter>
+</div>
 <div #chartContainerRef class="chart-container">
   <ngx-charts-pie-chart
       [view]="view"

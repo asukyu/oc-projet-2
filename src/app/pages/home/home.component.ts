@@ -33,6 +33,10 @@ export class HomeComponent implements OnInit {
   tooltipDisabled : boolean = true;
   maxLabelLength : number = 22;
   faMedalIcon = faMedal;
+  joLabel: string = 'Number of JOs';
+  joCount: number = 0;
+  countriesLabel: string = 'Number of countries';
+  countriesCount: number = 0;
 
  constructor(
   private olympicService: OlympicService,
