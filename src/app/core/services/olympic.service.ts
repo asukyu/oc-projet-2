@@ -47,7 +47,9 @@ export class OlympicService {
       }
     }));
     return jos.length;
-  }  getNumberOfCountries(olympics: Olympic[]): number {
+  }  
+  
+  getNumberOfCountries(olympics: Olympic[]): number {
     var olympicList: Olympic[] = [];
     olympics.forEach(ol => {
       var olympic = this.getOlympicById(ol.id, olympicList);
@@ -80,6 +82,14 @@ export class OlympicService {
     var olympic = undefined;
     if (olympics.length > 0) {
       olympic = olympics.find(o => o.id == id);
+    }
+    return olympic;
+  }
+
+  getOlympicByCountry(country: string, olympics: Olympic[]): Olympic | undefined {
+    var olympic = undefined;
+    if (olympics.length > 0) {
+      olympic = olympics.find(o => o.country == country);
     }
     return olympic;
   }

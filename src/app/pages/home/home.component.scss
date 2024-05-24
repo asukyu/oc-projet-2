@@ -1,0 +1,30 @@
+h2 {
+    color: #fefefe;
+    background-color: #04838F;
+    text-align: center;
+    padding: 10px 30px;
+    width: fit-content;
+    border-radius: 15px;
+    margin: auto;
+    margin-bottom: 30px;
+}
+
+.blockOne {
+    display: flex;
+    min-width: 250px;
+  }
+.numberBlock {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  margin: auto;
+  padding: 10px 0;
+}
+.blockTwo {
+    display: flex;
+    min-width: 250px;
+  }
+
+.chart-container {
+    padding: 0 33%;
+}

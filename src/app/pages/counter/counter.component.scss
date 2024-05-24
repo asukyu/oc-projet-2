@@ -1,0 +1,26 @@
+.counterLabel {
+    display: inline-block;
+    text-align: center;
+    border: solid #04838F;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: x-large;
+    border-radius: 15px;
+    color: rgb(94, 92, 92);
+    p {
+        margin: 0;
+        padding: 5px 10px;
+    }
+  }.number {
+    font-weight: bold;
+    text-align: center;
+    color: black;
+  }@media screen and (max-width: 490px) {
+    .counterLabel {
+      min-width: 200px;
+      padding-left: 2px;
+      padding-right: 2px;
+    }
+  }

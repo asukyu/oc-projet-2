@@ -7,6 +7,7 @@ import { OlympicMedalsCount } from 'src/app/core/models/OlympicMedalsCount';
 import { Olympic, Olympics } from 'src/app/core/models/Olympic';
 import { PieChartValue } from 'src/app/core/models/PieChartValue';
 import { faMedal } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -39,7 +40,7 @@ export class HomeComponent implements OnInit {
   countriesCount: number = 0;
 
  constructor(
-  private olympicService: OlympicService,
+  private olympicService: OlympicService, private router: Router
   ) {
     Object.assign(this, { OlympicService } );  
  }
@@ -50,6 +51,8 @@ export class HomeComponent implements OnInit {
         if(olympics === undefined) return;
         this.olympics = olympics.map((olympic) => new Olympic(olympic))
         this.data = this.olympics.map((olympic : Olympic) => {return {name: olympic.country, value: this.olympicService.getTotalNbMedals(olympic)}});
+        this.joCount = this.olympicService.getNumberOfJos(this.olympics);
+        this.countriesCount = this.olympicService.getNumberOfCountries(this.olympics);
       },
       error : (error : Error) => {
       }
@@ -58,6 +61,8 @@ export class HomeComponent implements OnInit {
 
   onSelect(data: any): void {
     console.log('Item clicked', JSON.parse(JSON.stringify(data)));
+    var olympic = this.olympicService.getOlympicByCountry(data.name, this.olympics);
+    olympic ? this.router.navigateByUrl(`app-country/${olympic.id}`) : this.router.navigateByUrl(`notfound`);
   }
   
 }
